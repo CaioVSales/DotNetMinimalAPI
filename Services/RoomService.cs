@@ -1,4 +1,3 @@
-// RoomService.cs
 using AutoMapper;
 using DotNetMinimalAPI.Data;
 using DotNetMinimalAPI.DTOs;
@@ -44,11 +43,10 @@ namespace DotNetMinimalAPI.Services
             
             if (existingRoom != null)
             {
-                // Update the existing room with data from roomDto
+                
                 _mapper.Map(roomDto, existingRoom);
                 await _context.SaveChangesAsync();
             }
-            // Handle the case where the room with the provided id is not found
         }
 
         public async Task DeleteRoomAsync(int id)
@@ -60,7 +58,6 @@ namespace DotNetMinimalAPI.Services
                 _context.Rooms.Remove(roomToDelete);
                 await _context.SaveChangesAsync();
             }
-            // Handle the case where the room with the provided id is not found
         }
     }
 }

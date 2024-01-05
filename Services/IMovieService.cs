@@ -1,4 +1,3 @@
-// Services/IMovieService.cs
 using DotNetMinimalAPI.DTOs;
 
 namespace DotNetMinimalAPI.Services

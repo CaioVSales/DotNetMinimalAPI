@@ -1,4 +1,3 @@
-// Services/MovieService.cs
 using Microsoft.EntityFrameworkCore;
 using DotNetMinimalAPI.Data;
 using DotNetMinimalAPI.DTOs;

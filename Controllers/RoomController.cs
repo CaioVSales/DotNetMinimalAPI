@@ -1,6 +1,5 @@
-// RoomController.cs
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;  // Add this using directive
+using System.Threading.Tasks;
 using DotNetMinimalAPI.DTOs;
 using DotNetMinimalAPI.Services;
 
@@ -21,7 +20,7 @@ namespace DotNetMinimalAPI.Controllers
         public async Task<IActionResult> GetAllRooms()
         {
             var rooms = await _roomService.GetAllRoomsAsync();
-            return Ok(rooms);  // Assuming GetAllRoomsAsync returns a List<RoomDTO>
+            return Ok(rooms);
         }
 
         [HttpGet("{id}")]
@@ -30,7 +29,7 @@ namespace DotNetMinimalAPI.Controllers
             var room = await _roomService.GetRoomByIdAsync(id);
             
             if (room == null)
-                return NotFound();  // Return 404 if the room is not found
+                return NotFound();
             
             return Ok(room);
         }

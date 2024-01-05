@@ -1,12 +1,12 @@
 using DotNetMinimalAPI.Data;
 using Microsoft.EntityFrameworkCore;
-using DotNetMinimalAPI.Models;  // Add this using directive
-using DotNetMinimalAPI.DTOs;  // Add this using directive
+using DotNetMinimalAPI.Models;
+using DotNetMinimalAPI.DTOs;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add AutoMapper configuration
-builder.Services.AddAutoMapper(typeof(Program));  // Assuming AutoMapperProfile is in the same assembly as Program
+builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
