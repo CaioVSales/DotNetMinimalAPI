@@ -28,7 +28,7 @@ namespace DotNetMinimalAPI.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"Error in GetAllRooms: {ex.Message}");
-                return StatusCode(500, "Internal server error");
+                return StatusCode(400, "Bad request");
             }
         }
 
@@ -49,7 +49,7 @@ namespace DotNetMinimalAPI.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"Error in GetRoomById: {ex.Message}");
-                return StatusCode(500, "Internal server error");
+                return StatusCode(400, "Bad request");
             }
         }
 
@@ -69,7 +69,7 @@ namespace DotNetMinimalAPI.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"Error in CreateRoom: {ex.Message}");
-                return StatusCode(500, "Internal server error");
+                return StatusCode(400, "Bad request");
             }
         }
 
@@ -89,7 +89,7 @@ namespace DotNetMinimalAPI.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"Error in UpdateRoom: {ex.Message}");
-                return StatusCode(500, "Internal server error");
+                return StatusCode(400, "Bad request");
             }
         }
 
@@ -104,7 +104,7 @@ namespace DotNetMinimalAPI.Controllers
             catch (Exception ex)
             {
                 _logger.LogError($"Error in DeleteRoom: {ex.Message}");
-                return StatusCode(500, "Internal server error");
+                return StatusCode(400, "Bad request");
             }
         }
     }

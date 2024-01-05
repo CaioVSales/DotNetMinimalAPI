@@ -16,12 +16,10 @@ namespace DotNetMinimalAPI.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configure the relationship between Room and Movie
             modelBuilder.Entity<Movie>()
                 .HasOne(m => m.Room)
                 .WithMany(r => r.Movies)
                 .HasForeignKey(m => m.RoomId);
-
         }
     }
 }

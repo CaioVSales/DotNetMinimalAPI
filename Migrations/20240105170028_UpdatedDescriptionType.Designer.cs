@@ -2,6 +2,7 @@
 using DotNetMinimalAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DotNetMinimalAPI.Migrations
 {
     [DbContext(typeof(CinemaApiDbContext))]
-    partial class CinemaApiDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240105170028_UpdatedDescriptionType")]
+    partial class UpdatedDescriptionType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

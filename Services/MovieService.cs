@@ -45,24 +45,41 @@ namespace DotNetMinimalAPI.Services
             return movie;
         }
 
-        public async Task CreateMovie(MovieDTO movieDTO)
+       public async Task CreateMovie(MovieDTO movieDTO)
         {
             var room = await _context.Rooms.FindAsync(movieDTO.RoomId);
 
-            if (room != null)
+            if (room == null)
             {
-                var movie = new Movie
+                room = new Room
                 {
-                    Duration = movieDTO.Duration,
-                    Name = movieDTO.Name,
-                    Description = movieDTO.Description,
-                    Room = room
+                    RoomNumber = 1,
                 };
 
-                _context.Movies.Add(movie);
+                _context.Rooms.Add(room);
                 await _context.SaveChangesAsync();
             }
+
+            var movie = new Movie
+            {
+                Duration = movieDTO.Duration,
+                Name = movieDTO.Name,
+                Description = movieDTO.Description ?? "",
+                RoomId = room.RoomId
+            };
+
+            _context.Movies.Add(movie);
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw ex;
+            }
         }
+
 
         public async Task UpdateMovie(int id, MovieDTO movieDTO)
         {
