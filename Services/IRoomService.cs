@@ -1,11 +1,13 @@
-using System.Collections.Generic;
-using DotNetMinimalAPI.Models;
+using DotNetMinimalAPI.DTOs;
 
-namespace DotNetMinimalAPI.Repositories
+namespace DotNetMinimalAPI.Services
 {
-    public interface IRoomRepository
+    public interface IRoomService
     {
-        List<Room> GetRooms();
-        Room GetRoomById(int id);
+        Task<List<RoomDTO>> GetAllRoomsAsync();
+        Task<RoomDTO> GetRoomByIdAsync(int id);
+        Task<int> CreateRoomAsync(RoomDTO roomDto);
+        Task UpdateRoomAsync(int id, RoomDTO roomDto);
+        Task DeleteRoomAsync(int id);
     }
 }

@@ -2,6 +2,7 @@ using DotNetMinimalAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using DotNetMinimalAPI.Models;
 using DotNetMinimalAPI.DTOs;
+using DotNetMinimalAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,9 @@ builder.Services.AddDbContext<CinemaApiDbContext>(options =>
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
     options.EnableSensitiveDataLogging(); // Log sensitive data during development
 });
+builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IRoomService, RoomService>();
+
 
 // Configure AutoMapper
 // builder.Services.AddAutoMapper(cfg =>
@@ -40,16 +44,16 @@ app.UseAuthorization();
 app.MapControllers();
 
 // Ensure the database is created and apply migrations
-// using (var scope = app.Services.CreateScope())
-// {
-//     var dbContext = scope.ServiceProvider.GetRequiredService<CinemaApiDbContext>();
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<CinemaApiDbContext>();
 
-//     // Check if the database exists, if not, create it
-//     if (!dbContext.Database.CanConnect())
-//     {
-//         dbContext.Database.EnsureCreated();
-//         dbContext.Database.Migrate();
-//     }
-// }
+    // Check if the database exists, if not, create it
+    if (!dbContext.Database.CanConnect())
+    {
+        dbContext.Database.EnsureCreated();
+        dbContext.Database.Migrate();
+    }
+}
 
 app.Run();

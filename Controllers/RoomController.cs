@@ -1,7 +1,5 @@
-using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
-using DotNetMinimalAPI.DTOs;
 using DotNetMinimalAPI.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetMinimalAPI.Controllers
 {
@@ -9,9 +7,9 @@ namespace DotNetMinimalAPI.Controllers
     [Route("api/[controller]")]
     public class RoomController : ControllerBase
     {
-        private readonly RoomService _roomService;
+        private readonly IRoomService _roomService;
 
-        public RoomController(RoomService roomService)
+        public RoomController(IRoomService roomService)
         {
             _roomService = roomService;
         }
@@ -27,32 +25,14 @@ namespace DotNetMinimalAPI.Controllers
         public async Task<IActionResult> GetRoomById(int id)
         {
             var room = await _roomService.GetRoomByIdAsync(id);
-            
+
             if (room == null)
+            {
                 return NotFound();
-            
+            }
+
             return Ok(room);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateRoom([FromBody] RoomDTO roomDto)
-        {
-            var roomId = await _roomService.CreateRoomAsync(roomDto);
-            return CreatedAtAction(nameof(GetRoomById), new { id = roomId }, roomDto);
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateRoom(int id, [FromBody] RoomDTO roomDto)
-        {
-            await _roomService.UpdateRoomAsync(id, roomDto);
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRoom(int id)
-        {
-            await _roomService.DeleteRoomAsync(id);
-            return NoContent();
-        }
     }
 }

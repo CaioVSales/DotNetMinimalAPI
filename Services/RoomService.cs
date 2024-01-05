@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DotNetMinimalAPI.Services
 {
-    public class RoomService
+    public class RoomService : IRoomService
     {
         private readonly CinemaApiDbContext _context;
         private readonly IMapper _mapper;
@@ -40,10 +40,9 @@ namespace DotNetMinimalAPI.Services
         public async Task UpdateRoomAsync(int id, RoomDTO roomDto)
         {
             var existingRoom = await _context.Rooms.FirstOrDefaultAsync(r => r.RoomId == id);
-            
+
             if (existingRoom != null)
             {
-                
                 _mapper.Map(roomDto, existingRoom);
                 await _context.SaveChangesAsync();
             }
@@ -52,7 +51,7 @@ namespace DotNetMinimalAPI.Services
         public async Task DeleteRoomAsync(int id)
         {
             var roomToDelete = await _context.Rooms.FirstOrDefaultAsync(r => r.RoomId == id);
-            
+
             if (roomToDelete != null)
             {
                 _context.Rooms.Remove(roomToDelete);
