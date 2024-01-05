@@ -47,15 +47,21 @@ namespace DotNetMinimalAPI.Services
 
         public async Task CreateMovie(MovieDTO movieDTO)
         {
-            var movie = new Movie
-            {
-                Duration = movieDTO.Duration,
-                Name = movieDTO.Name,
-                Description = movieDTO.Description
-            };
+            var room = await _context.Rooms.FindAsync(movieDTO.RoomId);
 
-            _context.Movies.Add(movie);
-            await _context.SaveChangesAsync();
+            if (room != null)
+            {
+                var movie = new Movie
+                {
+                    Duration = movieDTO.Duration,
+                    Name = movieDTO.Name,
+                    Description = movieDTO.Description,
+                    Room = room
+                };
+
+                _context.Movies.Add(movie);
+                await _context.SaveChangesAsync();
+            }
         }
 
         public async Task UpdateMovie(int id, MovieDTO movieDTO)

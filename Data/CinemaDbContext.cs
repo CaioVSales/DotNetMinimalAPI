@@ -11,5 +11,17 @@ namespace DotNetMinimalAPI.Data
 
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Room> Rooms { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Configure the relationship between Room and Movie
+            modelBuilder.Entity<Movie>()
+                .HasOne(m => m.Room)
+                .WithMany(r => r.Movies)
+                .HasForeignKey(m => m.RoomId);
+
+        }
     }
 }

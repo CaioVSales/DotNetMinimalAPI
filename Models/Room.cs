@@ -1,16 +1,14 @@
-namespace DotNetMinimalAPI.Models;
+using System.Collections.Generic;
 
-public class Room
+namespace DotNetMinimalAPI.Models
 {
-    public int RoomId { get; set; }
-    public string RoomNumber { get; set; } = string.Empty;
-    public string Description { get; set; } = string.Empty;
-    public List<Movie> Movies { get; set; }
-
-    public Room()
+    public class Room
     {
-        RoomNumber = string.Empty;
-        Description = string.Empty;
-        Movies = new List<Movie>();
+        public int RoomId { get; set; }
+        public string RoomNumber { get; set; }
+        public string Description { get; set; }
+
+        // New property to represent the relationship
+        public ICollection<Movie> Movies { get; set; }
     }
 }
