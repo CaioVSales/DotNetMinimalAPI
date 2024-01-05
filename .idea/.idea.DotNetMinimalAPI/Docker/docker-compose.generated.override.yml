@@ -1,0 +1,22 @@
+# This is a generated file. Not intended for manual editing.
+version: "3.4"
+services:
+  dotnet-minimal-api:
+    build:
+      context: "C:\\Users\\caiov\\Documents\\DotNetMinimalAPI"
+      dockerfile: "Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net7.0/DotNetMinimalAPI.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "dotnet-minimal-api:dev"
+    ports: []
+    volumes:
+    - "C:\\Users\\caiov\\.nuget\\packages:/root/.nuget/packages"
+    - "C:\\Users\\caiov\\Documents\\DotNetMinimalAPI:/app:rw"
+    - "C:\\Users\\caiov\\Documents\\DotNetMinimalAPI:/src:rw"
+    working_dir: "/app"

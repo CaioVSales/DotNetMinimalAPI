@@ -1,28 +1,32 @@
-using Microsoft.EntityFrameworkCore;
 using DotNetMinimalAPI.Data;
-using MySql.EntityFrameworkCore;
-using MySql.EntityFrameworkCore.Extensions;
-
+using Microsoft.EntityFrameworkCore;
+using DotNetMinimalAPI.Models;  // Add this using directive
+using DotNetMinimalAPI.DTOs;  // Add this using directive
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add AutoMapper configuration
+builder.Services.AddAutoMapper(typeof(Program));  // Assuming AutoMapperProfile is in the same assembly as Program
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-// builder.Services.AddDbContext<CinemaApiDbContext>(options =>
-//     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"))
-// );
-
 builder.Services.AddDbContext<CinemaApiDbContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), new MySqlServerVersion(new Version(8, 0, 23)))
-);
+{
+    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+    options.EnableSensitiveDataLogging(); // Log sensitive data during development
+});
+
+// Configure AutoMapper
+// builder.Services.AddAutoMapper(cfg =>
+// {
+//     cfg.CreateMap<Room, RoomDTO>();
+//     cfg.CreateMap<RoomDTO, Room>();
+// }, typeof(Program));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -34,5 +38,18 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+// Ensure the database is created and apply migrations
+// using (var scope = app.Services.CreateScope())
+// {
+//     var dbContext = scope.ServiceProvider.GetRequiredService<CinemaApiDbContext>();
+
+//     // Check if the database exists, if not, create it
+//     if (!dbContext.Database.CanConnect())
+//     {
+//         dbContext.Database.EnsureCreated();
+//         dbContext.Database.Migrate();
+//     }
+// }
 
 app.Run();
