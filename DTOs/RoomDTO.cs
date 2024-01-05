@@ -1,4 +1,3 @@
-// RoomDTO.cs
 namespace DotNetMinimalAPI.DTOs
 {
     public class RoomDTO

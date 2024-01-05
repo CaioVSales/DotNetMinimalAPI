@@ -23,11 +23,11 @@ builder.Services.AddScoped<IRoomService, RoomService>();
 
 
 // Configure AutoMapper
-// builder.Services.AddAutoMapper(cfg =>
-// {
-//     cfg.CreateMap<Room, RoomDTO>();
-//     cfg.CreateMap<RoomDTO, Room>();
-// }, typeof(Program));
+builder.Services.AddAutoMapper(cfg =>
+{
+    cfg.CreateMap<Room, RoomDTO>();
+    cfg.CreateMap<RoomDTO, Room>();
+}, typeof(Program));
 
 var app = builder.Build();
 

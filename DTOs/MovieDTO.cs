@@ -1,4 +1,3 @@
-// DTOs/MovieDTO.cs
 namespace DotNetMinimalAPI.DTOs
 {
     public class MovieDTO

@@ -1,4 +1,3 @@
-// Controllers/MoviesController.cs
 using Microsoft.AspNetCore.Mvc;
 using DotNetMinimalAPI.DTOs;
 using DotNetMinimalAPI.Services;
